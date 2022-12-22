@@ -1,0 +1,1 @@
+1. show the cdf picture of The distance between the location we got and the location we queried in the location database

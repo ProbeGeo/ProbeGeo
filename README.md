@@ -1,1 +1,9 @@
-# ProbeGeo
+# ProbeGeo: A Comprehensive Landmark Mining Framework Based on Web Content and Online Retrieval
+IP geolocation is essential for various location-aware Internet applications. High-quality IP geolocation landmarks play a decisive role in the accuracy of IP geolocation. However, the previous research works focusing on mining landmarks from the Internet are hampered by poor landmark types, limited quantity, insufficient accuracy, and restricted coverage. In this paper, we propose a new type of landmark called probe landmarks to utilize public VPs (Vantage Points) with geographical locations and active probe functions. We also expand traditional common landmarks by taking advantage of the exposure of multiple IoT (Internet-of-Things) devices on the Internet to improve the quantity and quality of landmarks. In particular, we present a new framework called ProbeGeo to detect high-quality landmarks automatically. On the one hand, ProbeGeo searches device websites online to discover common landmarks, increasing the quantity and coverage of landmarks. On the other hand, ProbeGeo constructs probe landmarks by extracting the geographical locations of VPs from existing VPs websites, improving the accuracy and stability of landmarks. We develop a prototype of ProbeGeo and conduct real-world experiments to validate its efficacy. Our results show that ProbeGeo can detect 89,849 high-quality landmarks, including 6,874 probe landmarks and 82,975 common landmarks. ProbeGeo landmarks are about 10x more than existing work, distributed in 181 countries and 7,094 cities. ProbeGeo landmarks cover more than 8 types of devices, and more than 58% of them remain stable over one month. Moreover, the accuracy of more than 40% of ProbeGeo landmarks is above street level, which has not been achieved in previous works. ProbeGeo can provide a geolocation service with high accuracy and broad coverage by correlating a large scale of landmarks. 
+
+## Introduction
+
+
+## Code
+
+## Datasets and CDF

@@ -1,0 +1,1 @@
+1. calculate the distribution of the positions of the landmarks we have
