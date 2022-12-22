@@ -67,10 +67,9 @@ def getresponedURLs():
     file1 = open('prefilteredurl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
-        #0表示没有内容
+        #0 no content
         dictpre[','.join(row)]=0
     print(len(dictpre))
-
     for i in range(1,7):
         print(i)
         file1 = open(
@@ -89,19 +88,14 @@ def getresponedURLs():
             if (url[:4] != 'http' or url not in dictpre):
                 continue
             dictpre[url] =1
-
-
-
     file = open('getcontenturl.csv', 'w')
     for key in dictpre:
         if(dictpre[key]==1):
             file.writelines(key + '\n')
+
+
 if __name__ == '__main__':
-
     csv.field_size_limit(500 * 1024 * 1024)
-
-
-
     dicturl=[]
     file1 = open(
         'prefilteredurl.csv', 'r')
@@ -109,8 +103,6 @@ if __name__ == '__main__':
     csv.field_size_limit(500 * 1024 * 1024)
     for row in csv_reader1:
         dicturl.append(','.join(row))
-
-
     print(len(dicturl))
     d = 6
     num = int(len(dicturl) / d)

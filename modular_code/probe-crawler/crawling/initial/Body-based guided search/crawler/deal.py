@@ -1,9 +1,6 @@
-
 import csv
 import re
 import json
-
-
 
 def results():
     dictlg={}
@@ -24,6 +21,7 @@ def results():
     with open("bodysearchURLs.json", "w") as f:
         json.dump(dictlg, f)
     print(len(dictlg))
+
 
 if __name__ == '__main__':
     # deal()

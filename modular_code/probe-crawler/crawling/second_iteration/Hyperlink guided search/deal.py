@@ -2,13 +2,13 @@ import csv
 import re
 import json
 
+
 def results():
     dictrelev = {}
     file = open('../../../classification/relevant-URLs/initial/relevanceLG.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         dictrelev[','.join(row)] = ''
-
     dictlg={}
     for i in range(0, 10):
         print(str(i))
@@ -29,11 +29,10 @@ def results():
                     dictlg[l]=''
             except IndexError as e:
                 continue
-
-
     with open("LGinlinkurlfirst.json", "w") as f:
         json.dump(dictlg, f)
     print(len(dictlg))
+
 
 def removeduple():
     dictpre={}
@@ -44,53 +43,40 @@ def removeduple():
     for key in data:
         if('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]]=''
-
-
-
     f = open('../../initial/Hyperlink-guided search/crawler/LGinlinkurlfirst.json', encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
     for key in data:
         if ( 'http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] =''
-
-
-
     f = open('../../initial/Title-based guided search/crawler/titlesearchURLs.json', encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
-
     f = open('../../initial/Body-based guided search/crawler/bodysearchURLs.json', encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
-
-
     dictnew={}
-    f = open('LGinlinkurlfirst.json', encoding='utf-8')  # 打开‘json文件
+    f = open('LGinlinkurlfirst.json', encoding='utf-8')
     res = f.read()
     from collections import OrderedDict
     data = json.loads(res, object_pairs_hook=OrderedDict)
     for key in data:
-
         try:
             if('http' in key[:4] and key.split('//')[1] not in dictpre):
                 dictnew[key]=''
         except IndexError as e:
             continue
-
-
-
     with open("LGinlinkurlfirstnew.json", "w") as f:
         json.dump(dictnew, f)
     print(len(dictnew))
+
+
 if __name__ == '__main__':
     # results()
     removeduple()

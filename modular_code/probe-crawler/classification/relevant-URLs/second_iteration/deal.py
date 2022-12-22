@@ -143,7 +143,7 @@ def meargetitle():
     file1 = open('../../getURLs/second_iteration/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
-        # 0表示没有内容
+        # 0 no content
         dictpre1[','.join(row)] = 0
 
     file=open('predictLGtitle.csv','w')
@@ -161,8 +161,6 @@ def meargetitle():
 
     for key in dictpre1:
         file.writelines(key + ',|ProbeGeo|' + dictpre1[key] + '\n')
-
-
 
 
 def titlepluscontrol(f1name,f2name,f3name,f4name):

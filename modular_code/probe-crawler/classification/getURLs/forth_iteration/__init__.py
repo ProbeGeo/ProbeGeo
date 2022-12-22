@@ -56,12 +56,6 @@ def dataprocess1():
     data = json.loads(res)
     for key in data:
         all1.append(key)
-
-
-
-
-
-
     all2=[]
     f = open('../../../crawling/fourth_iteration/Hyperlink guided search/LGinlinkurlfirstnew.json', encoding='utf-8')  #
     res = f.read()  #
@@ -114,7 +108,6 @@ def predict():
 
 
 ##According to the above classification results, we obtain pre-filtered URLs
-
 def prefilterURL():
     dictinputseed = {}
     file1 = open(
@@ -123,9 +116,6 @@ def prefilterURL():
     csv.field_size_limit(500 * 1024 * 1024)
     for row in csv_reader1:
         dictinputseed[','.join(row).split('//')[1]] = ''
-
-
-
     dictpredict={}
     file1 = open('baggingresultnew.csv', 'r')
     csv_reader1 = csv.reader(file1)
@@ -136,9 +126,6 @@ def prefilterURL():
                     dictpredict[','.join(row).split('\t')[0].split('//')[1]].append(','.join(row).split('\t')[0])
             else:
                 dictpredict[','.join(row).split('\t')[0].split('//')[1]]=[','.join(row).split('\t')[0]]
-
-
-
     dicturl={}
     for key in dictpredict:
         if('https://'+key in dictpredict[key]):

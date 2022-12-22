@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 import csv
 
@@ -50,10 +49,6 @@ def dataprocess1():
     data = json.loads(res)
     for key in data:
         all1.append(key)
-
-
-
-
 
     all2=[]
     f = open('../../../crawling/second_iteration/Hyperlink guided search/LGinlinkurlfirstnew.json', encoding='utf-8')  #
@@ -172,7 +167,6 @@ def prefilterURL():
             url=dictlg[key][0]
 
         url_sche = url.split('//')[1]
-        # 新的
         tag = 0
         for key in dictinputseed:
             if (url_sche in key or key in url_sche):

@@ -69,7 +69,7 @@ def do_something(urllist,be,ed,thread_index):
                 time.sleep(1)
                 source_code = browser.page_source
                 if('There are no results for' in source_code.replace('\n','')):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
                 soup = bs(source_code, "html.parser")
                 td = soup.findAll("h2")
@@ -91,7 +91,7 @@ def do_something(urllist,be,ed,thread_index):
                     str2 += '</URL></title>,'
                 str1 += '\n'
                 if (str2 in str1pre):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
 
         else:
@@ -105,8 +105,6 @@ def do_something(urllist,be,ed,thread_index):
 
 
 if __name__ == '__main__':
-
-
     dicturl = []
     file = open('../TF-IDF/itemfrequent.csv', 'r')
     csv_reader1 = csv.reader(file)
@@ -114,9 +112,6 @@ if __name__ == '__main__':
         query=row[0]+' looking glass'
         if (query not in dicturl):
             dicturl.append(query)
-
-
-
     print(len(dicturl))
     d = 2
     num = int(len(dicturl) / d)

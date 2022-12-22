@@ -1,4 +1,3 @@
-
 import urllib.request
 import urllib.request
 import requests
@@ -13,6 +12,7 @@ import csv
 from selenium.webdriver.chrome.options import Options
 import selenium
 
+
 def do_something(urllist,be,ed,thread_index):
 
     f1 = open('Middle_results_' + str(int(thread_index)) + '.csv', 'a')
@@ -23,7 +23,7 @@ def do_something(urllist,be,ed,thread_index):
     browser.get(url)
     time.sleep(30)
 
-    ##对于每个URL进行搜索
+    ##search every URL
     for num in range(be,ed):
 
         str1=''
@@ -51,7 +51,7 @@ def do_something(urllist,be,ed,thread_index):
                 continue
 
         if(resultnum!=0 ):
-            ##得到有多少页
+            ##get page nums
             page=int(int(resultnum)/30)+1
             if(page>350):
                 page=350
@@ -71,7 +71,7 @@ def do_something(urllist,be,ed,thread_index):
                 time.sleep(1)
                 source_code = browser.page_source
                 if('There are no results for' in source_code.replace('\n','')):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
                 soup = bs(source_code, "html.parser")
                 td = soup.findAll("h2")
@@ -88,45 +88,31 @@ def do_something(urllist,be,ed,thread_index):
                         for x in h.groups():
                             str1 += x + ','
                             str2 += x + ','
-
                     str1 += '</URL></title>,'
                     str2 += '</URL></title>,'
                 str1 += '\n'
                 if (str2 in str1pre):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
-
         else:
             continue
-
-
         f1.writelines(str1)
         f1.flush()
 
 
-
-
 if __name__ == '__main__':
-
-
     dictpre = {}
     for i in range(0, 10):
         file1 = open('Middle_results_' + str(i) + '.csv', 'r')
         csv_reader1 = csv.reader(file1)
         for row in csv_reader1:
             dictpre[row[0]] = ''
-
-
-
     dicturl = []
     file = open('../../../../webseds/All-LGseedpages/inputseed.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         if (row[0] not in dicturl and row[0] not in dictpre):
             dicturl.append(row[0])
-
-
-
     print(len(dicturl))
     d = 10
     num = int(len(dicturl) / d)
@@ -136,6 +122,5 @@ if __name__ == '__main__':
             t.start()
             time.sleep(30)
         else:
-            t = threading.Thread(target=do_something,
-                                 args=(dicturl, num * i, len(dicturl) , i))
+            t = threading.Thread(target=do_something,args=(dicturl, num * i, len(dicturl) , i))
             t.start()

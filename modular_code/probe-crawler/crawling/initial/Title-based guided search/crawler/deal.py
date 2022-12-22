@@ -1,13 +1,9 @@
-
 import csv
 import re
 import json
 
 
-
-
 def results():
-
     dictlg={}
     for i in range(0, 10):
         file1 = open('Middle_results_' + str(i) + '.csv', 'r')
@@ -29,6 +25,7 @@ def results():
     with open("titlesearchURLs.json", "w") as f:
         json.dump(dictlg, f)
     print(len(dictlg))
+
 
 if __name__ == '__main__':
     results()

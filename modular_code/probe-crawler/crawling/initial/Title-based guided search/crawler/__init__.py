@@ -1,4 +1,3 @@
-
 import urllib.request
 import urllib.request
 import requests
@@ -13,18 +12,15 @@ import csv
 from selenium.webdriver.chrome.options import Options
 import selenium
 
-def do_something(urllist,be,ed,thread_index):
 
+def do_something(urllist,be,ed,thread_index):
     f1 = open('Middle_results_' + str(int(thread_index)) + '.csv', 'a')
     chrome_options = Options()
-
     browser = webdriver.Chrome(chrome_options=chrome_options)
     url = 'https://cn.bing.com/search?q=hello&ensearch=1&first=1&FORM=PERE'
     browser.get(url)
     time.sleep(30)
-
     for num in range(be,ed):
-
         str1=''
         key = urllib.parse.quote(urllist[num])
         url = 'https://cn.bing.com/search?q=' + key + '&ensearch=1&first=1&FORM=PERE'
@@ -48,7 +44,6 @@ def do_something(urllist,be,ed,thread_index):
             except ValueError as e:
                 print(e)
                 continue
-
         if(resultnum!=0 ):
             page=int(int(resultnum)/30)+1
             if(page>350):
@@ -60,7 +55,6 @@ def do_something(urllist,be,ed,thread_index):
                 except selenium.common.exceptions.TimeoutException as e:
                     print(e)
                     continue
-
                 time.sleep(1)
                 js = 'window.scrollTo(0, document.body.scrollHeight);'
                 browser.execute_script(js)
@@ -69,7 +63,7 @@ def do_something(urllist,be,ed,thread_index):
                 time.sleep(1)
                 source_code = browser.page_source
                 if('There are no results for' in source_code.replace('\n','')):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
                 soup = bs(source_code, "html.parser")
                 td = soup.findAll("h2")
@@ -91,25 +85,16 @@ def do_something(urllist,be,ed,thread_index):
                     str2 += '</URL></title>,'
                 str1 += '\n'
                 if (str2 in str1pre):
-                    print('当前URL检索完成')
+                    print('URL complete')
                     break
-
         else:
             continue
-
-
         f1.writelines(str1)
         f1.flush()
 
 
-
-
 if __name__ == '__main__':
-
     #conduct multi-thread for crawlingcandidate URLs
-
-
-
     ##input all query terms
     dicturl = {}
     file = open('../frequent itemset mining/URLrecord.csv', 'r')
@@ -118,13 +103,9 @@ if __name__ == '__main__':
         query=row[0]
         if (query not in dicturl):
             dicturl[query]=''
-
-
     dicturl1=[]
     for key in dicturl:
         dicturl1.append(key)
-
-
     ##multi-thread
     print(len(dicturl1))
     d = 10

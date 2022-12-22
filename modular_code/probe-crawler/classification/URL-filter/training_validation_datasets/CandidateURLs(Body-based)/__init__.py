@@ -1,4 +1,3 @@
-
 import json
 from collections import OrderedDict
 import csv
@@ -9,12 +8,11 @@ import math
 #split the candidate URLs into 98% and 2%, the 2% URLs are labeled
 def testdata():
     keylist={}
-    f = open('../../../../crawling/initial/Body-based guided search/crawler/bodysearchURLs.json', encoding='utf-8')  # 打开‘json文件
+    f = open('../../../../crawling/initial/Body-based guided search/crawler/bodysearchURLs.json', encoding='utf-8')
     csv_reader1 = csv.reader(f)
     for row in csv_reader1:
         if (','.join(row) not in keylist):
             keylist[','.join(row)] = ''
-
     print(len(keylist))
     urllist = []
     for key in keylist:
@@ -27,10 +25,6 @@ def testdata():
         dicttestlable[urllist[i]] = ''
     with open("testlabel.json", "w") as f:
         json.dump(dicttestlable, f)
-
-
-
-
 
 
 def validation():
@@ -55,6 +49,7 @@ def validation():
         json.dump(dictvalidation, f)
     with open("testlabel-test.json", "w") as f:
         json.dump(dicttest, f)
-if __name__ == '__main__':
 
+
+if __name__ == '__main__':
     validation()

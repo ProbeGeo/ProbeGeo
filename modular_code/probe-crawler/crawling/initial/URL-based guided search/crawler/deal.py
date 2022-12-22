@@ -1,8 +1,6 @@
-
 import csv
 import re
 import json
-
 
 
 def results():
@@ -25,6 +23,6 @@ def results():
         json.dump(dictlg, f)
     print(len(dictlg))
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     results()

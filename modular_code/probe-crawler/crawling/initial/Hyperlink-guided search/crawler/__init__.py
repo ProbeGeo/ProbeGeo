@@ -1,4 +1,3 @@
-
 import urllib.request
 import urllib.request
 import requests
@@ -48,7 +47,6 @@ def do_something(dictcontent,urllist,be,ed,thread_index):
 
 
 if __name__ == '__main__':
-
     dictcontent={}
     csv.field_size_limit(500 * 1024 * 1024)
     dicturl=[]
@@ -56,8 +54,6 @@ if __name__ == '__main__':
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dicturl.append(','.join(row))
-
-
 
     print(len(dicturl))
     d = 10

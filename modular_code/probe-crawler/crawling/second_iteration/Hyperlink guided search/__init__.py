@@ -1,4 +1,3 @@
-
 import urllib.request
 import urllib.request
 import requests
@@ -40,7 +39,6 @@ def do_something(dictcontent,urllist,be,ed,thread_index):
                     str1 += '<URL>' + url_ifr + '</URL>,'
             f1.writelines(url + ',|ProbeGeo|' + str1 + '\n')
             f1.flush()
-
         except Exception as e:
             f1.writelines(url + ',|ProbeGeo|' + str1 + '\n')
             f1.flush()
@@ -49,18 +47,13 @@ def do_something(dictcontent,urllist,be,ed,thread_index):
             continue
 
 
-
 if __name__ == '__main__':
-
     csv.field_size_limit(500 * 1024 * 1024)
-
-
     dicturl = []
     file1 = open('../../../classification/relevant-URLs/initial/relevanceLG.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dicturl.append(','.join(row))
-
     dictcontent={}
     file1 = open('../../../classification/relevant-URLs/initial/LGallcontent.csv', 'r')
     csv_reader1 = csv.reader(file1)
@@ -76,10 +69,6 @@ if __name__ == '__main__':
         if(html.replace(' ','')==''):
             continue
         dictcontent[url]=html
-
-
-
-
     print(len(dictcontent))
     print(len(dicturl))
     d = 10
@@ -89,6 +78,5 @@ if __name__ == '__main__':
             t = threading.Thread(target=do_something, args=(dictcontent,dicturl, num * i, num * (i + 1), i))
             t.start()
         else:
-            t = threading.Thread(target=do_something,
-                                 args=(dictcontent,dicturl, num * i, len(dicturl) , i))
+            t = threading.Thread(target=do_something,args=(dictcontent,dicturl, num * i, len(dicturl) , i))
             t.start()

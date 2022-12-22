@@ -1,4 +1,3 @@
-
 import csv
 import re
 import json
@@ -90,8 +89,8 @@ def removeduple():
         except IndexError as e:
             continue
     dictnew={}
-    f = open('fatherURLs.json', encoding='utf-8')  # 打开‘json文件
-    res = f.read()  # 读文件
+    f = open('fatherURLs.json', encoding='utf-8')
+    res = f.read()
     from collections import OrderedDict
     data = json.loads(res, object_pairs_hook=OrderedDict)
     for key in data:

@@ -48,8 +48,6 @@ def dataprocess1():
             all.append(key)
             alllabel.append(0)
 
-
-
     f = open('../training_validation_datasets/CandidateURLs(Hyperlink-guided)/testlabel.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -62,8 +60,6 @@ def dataprocess1():
             all.append(key)
             alllabel.append(0)
 
-
-
     f = open('../training_validation_datasets/CandidateURLs(Title-based)/testlabel.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -75,8 +71,6 @@ def dataprocess1():
         if (key not in dicttest):
             all.append(key)
             alllabel.append(0)
-
-
 
     f = open('../training_validation_datasets/CandidateURLs(Body-based)/testlabel.json', encoding='utf-8')  #
     res = f.read()  #
@@ -111,7 +105,6 @@ def bagging(cv_fit_all,alllabel,cv_fit_father,all1,c,t,k):
         max_samples = int(sum(alllabel)*k), # Balance the positives and unlabeled in each bag
         n_jobs = -1           # Use all cores
     )
-    ##这是训练集合得到的模型
     bc.fit(cv_fit_all, alllabel)
     joblib.dump(bc, 'bcT' + str(t) + 'K' + str(K) + '.pkl')
     file=open('probalineSVC'+str(c)+'-'+str(t)+'-'+str(k)+'.csv','w')

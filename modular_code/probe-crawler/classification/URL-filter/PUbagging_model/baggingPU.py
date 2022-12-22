@@ -1,5 +1,3 @@
-
-
 from __future__ import division
 
 import itertools
@@ -762,4 +760,3 @@ class BaggingClassifierPU(BaseBaggingPU, ClassifierMixin):
         decisions = sum(all_decisions) / self.n_estimators
 
         return decisions
-

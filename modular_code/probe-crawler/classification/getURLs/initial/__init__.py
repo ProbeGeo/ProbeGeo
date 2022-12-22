@@ -1,5 +1,15 @@
-
 import csv
+import urllib.request
+import urllib.request
+import requests
+import re
+import math
+from bs4 import BeautifulSoup as bs
+
+import time
+import json
+import threading
+
 
 def prefilteredURL():
     ##According to the above classification results, we obtain pre-filtered URLs
@@ -11,10 +21,6 @@ def prefilteredURL():
     csv.field_size_limit(500 * 1024 * 1024)
     for row in csv_reader1:
         dictinputseed[','.join(row).split('//')[1]] = ''
-
-
-
-
     dictpredict={}
     file1 = open('../../URL-filter/PUbagging_model/baggingresultnew.csv', 'r')
     csv_reader1 = csv.reader(file1)
@@ -53,24 +59,6 @@ def prefilteredURL():
         if (tag == 0):
             file.writelines(url + '\n')
 
-
-
-
-
-
-import urllib.request
-import urllib.request
-import requests
-import re
-import math
-from bs4 import BeautifulSoup as bs
-
-import time
-import json
-import threading
-import csv
-
-
 headers = {
             'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
             'accept-language': 'zh-CN,zh;q=0.9',
@@ -89,7 +77,7 @@ def do_something(urllist,be,ed,thread_index):
                              verify=False,
                              timeout=60)
             r.raise_for_status()
-            # 设置该html文档可能的编码
+            # setting possible html encodings
             r.encoding = r.apparent_encoding
             content = r.text
             # soup = bs(content, 'html.parser')
@@ -103,7 +91,6 @@ def do_something(urllist,be,ed,thread_index):
                                  verify=False,
                                  timeout=60)
                 r.raise_for_status()
-                # 设置该html文档可能的编码
                 r.encoding = r.apparent_encoding
                 content = r.text
                 f1.writelines(url + ',|ProbeGeo|' +url1 + ',|ProbeGeo|' +content.replace('\n',' ').replace('\t',' ') + '\n')
@@ -118,12 +105,8 @@ def do_something(urllist,be,ed,thread_index):
             continue
 
 
-
-
-
 def filedeal():
     ##merge html files from Multi-thread into a file
-
     csv.field_size_limit(500 * 1024 * 1024)
     dictinfo = []
     for i in range(0, 10):
@@ -140,11 +123,9 @@ def filedeal():
                 str1 += ','.join(row)
             else:
                 str1 += ','.join(row)
-
         if (str1 != ''):
             str1.replace('\n', ' ').replace('\t',' ')
             dictinfo.append(str1)
-
     print(len(dictinfo))
     file1=open('urlcontent.csv','w')
     for key in dictinfo:
@@ -152,17 +133,11 @@ def filedeal():
 
 
 def getresponedURLs():
-
-
     dictpre={}
     file1 = open('prefilteredurl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dictpre[','.join(row)]=0
-
-
-
-
     file1 = open('urlcontent.csv', 'r')
     csv_reader1 = csv.reader(file1)
     csv.field_size_limit(500 * 1024 * 1024)
@@ -175,12 +150,11 @@ def getresponedURLs():
         if (url[:4] != 'http' or url not in dictpre):
             continue
         dictpre[url] =1
-
-
     file = open('getcontenturl.csv', 'w')
     for key in dictpre:
         if(dictpre[key]==1):
             file.writelines(key + '\n')
+
 
 if __name__ == '__main__':
     #According to the above classification results, we obtain pre-filtered URLs

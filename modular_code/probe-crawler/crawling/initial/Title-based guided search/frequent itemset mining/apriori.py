@@ -1,4 +1,3 @@
-
 import sys
 
 from itertools import chain, combinations
@@ -107,15 +106,15 @@ def runApriori(data_iter, minSupport, minConfidence):
 
 def printResults(items, rules):
     file=open('rule.csv','w')
-    """prints the generated itemsets sorted by support and the confidence rules sorted by confidence"""
-    for item, support in sorted(items, key=lambda (item, support): support):
-        print("item: %s , %.3f" % (str(item), support))
-        item=list(item)
-        file.writelines(','.join(item)+'\n')
+    #prints the generated itemsets sorted by support and the confidence rules sorted by confidence
+    # for item, support in sorted(items, key=lambda (item, support): support):
+    #     print("item: %s , %.3f" % (str(item), support))
+    #     item=list(item)
+    #     file.writelines(','.join(item)+'\n')
     print("\n------------------------ RULES:")
-    for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
-        pre, post = rule
-        print("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
+    # for rule, confidence in sorted(rules, key=lambda (rule, confidence): confidence):
+    #     pre, post = rule
+    #     print("Rule: %s ==> %s , %.3f" % (str(pre), str(post), confidence))
 
 
 def dataFromFile(fname):

@@ -1,4 +1,3 @@
-
 import csv
 import json
 ###provide an overview of experimental results provided by running the hyperlink-guided search and the similarity-guided search.
@@ -65,8 +64,6 @@ def initialhowmanyobscureVPs(searchmethod):
     dictVPs = {}
     dictseedLG = {}
     dictseedVP = {}
-
-    ###get URLs and VPs from webseds
     f = open('../Practical_applications/Analysis/coverage/VP2AS/seedLGlistupdaterevise1.json', encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
@@ -78,9 +75,7 @@ def initialhowmanyobscureVPs(searchmethod):
                 dictseedVP[data[key]['VP'][key1][0]] = ''
     print(len(dictseedLG))
     print(len(dictseedVP))
-
-
-    ##get URLs and VPs from initial round of iteration
+    ##get URLs and lm from initial round of iteration
     f = open('../Practical_applications/Analysis/coverage/VP2AS/RelevantLGlistupdaterevise1.json', encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
@@ -101,8 +96,6 @@ def initialhowmanyobscureVPs(searchmethod):
             for key1 in dictLG[key]['VP']:
                 if (dictLG[key]['VP'][key1][0] not in dictseedVP):
                     dictnewVP[dictLG[key]['VP'][key1][0]] = ''
-
-    # the number of obscure VPs
     print(len(dictnewVP))
 
 
@@ -127,8 +120,6 @@ def iterationrelevant():
                  '../crawling/fourth_iteration/Hyperlink guided search/LGinlinkurlfirst.json',
                  '../crawling/fourth_iteration/Similarity guided search/fatherURLs.json'
                  ]
-
-
     for file in filelist1:
         f = open(file, encoding='utf-8')  #
         res = f.read()  #
@@ -144,12 +135,12 @@ def iterationrelevant():
     ##In total, there are how many relevant URLs
     print(num)
 
+
 def iterationobscureVPs():
     dictLG = {}
     dictVPs = {}
     dictseedLG = {}
     dictseedVP = {}
-
     seedlist=[ '../Practical_applications/Analysis/coverage/VP2AS/seedLGlistupdaterevise1.json',
                '../Practical_applications/Analysis/coverage/VP2AS/RelevantLGlistupdaterevise1.json' ]
     ###get URLs and VPs from webseds and initial round
@@ -165,7 +156,6 @@ def iterationobscureVPs():
                     dictseedVP[data[key]['VP'][key1][0]] = ''
     print(len(dictseedLG))
     print(len(dictseedVP))
-
     list1=['../Practical_applications/Analysis/coverage/VP2AS/Relevant2LGlistupdaterevise1.json',
             '../Practical_applications/Analysis/coverage/VP2AS/Relevant3LGlistupdaterevise1.json',
             '../Practical_applications/Analysis/coverage/VP2AS/Relevant4LGlistupdaterevise1.json']
@@ -180,7 +170,6 @@ def iterationobscureVPs():
             for key1 in data[key]['VP']:
                 if (data[key]['VP'][key1][0] not in dictVPs):
                     dictVPs[data[key]['VP'][key1][0]] = ''
-
     print(len(dictLG))
     print(len(dictVPs))
     filelist1 = [
@@ -191,7 +180,6 @@ def iterationobscureVPs():
         '../crawling/fourth_iteration/Hyperlink guided search/LGinlinkurlfirstnew.json',
         '../crawling/fourth_iteration/Similarity guided search/fatherURLsnew.json'
         ]
-
     dictnewVP = {}
     for searchmethod in filelist1:
         f = open(searchmethod, encoding='utf-8')  #
@@ -202,35 +190,9 @@ def iterationobscureVPs():
                 for key1 in dictLG[key]['VP']:
                     if (dictLG[key]['VP'][key1][0] not in dictseedVP):
                         dictnewVP[dictLG[key]['VP'][key1][0]] = ''
-
     # the number of obscure VPs
     print(len(dictnewVP))
 
+
 if __name__ == '__main__':
-    #for the first round of iteration，we calaulate the number of candidate URLs and relevant URLS from each search method
-    # body-bsed guided search 19793, 1114
-    # initialhowmanyrelevant('../classification/relevant-URLs/initial/relevanceLG.csv','../crawling/initial/Body-based guided search/crawler/bodysearchURLs.json')
-    # URL-bsed guided search 433865,1901
-    # initialhowmanyrelevant('../classification/relevant-URLs/initial/relevanceLG.csv','../crawling/initial/URL-based guided search/crawler/fatherURLs.json')
-    #title-bsed guided 461799, 2511
-    # initialhowmanyrelevant('../classification/relevant-URLs/initial/relevanceLG.csv','../crawling/initial/Title-based guided search/crawler/titlesearchURLs.json')
-    #all 877021，4111
-    # initalhowmanyrelevantall()
-    #hyperlink-guided
-    # initialhowmanyrelevant('../classification/relevant-URLs/initial/relevanceLG.csv','../crawling/initial/Hyperlink-guided search/crawler/LGinlinkurlfirst.json')
-
-
-    # for the first round of iteration，we calaulate the number of obscure VPs from each search method
-    # body-bsed guided search  470 obscure VPs
-    # initialhowmanyobscureVPs('../crawling/initial/Body-based guided search/crawler/bodysearchURLs.json')
-    ##uRL-bsed guided search 324
-    # initialhowmanyobscureVPs('../crawling/initial/URL-based guided search/crawler/fatherURLs.json')
-    # title-bsed guided 423
-    # initialhowmanyobscureVPs('../crawling/initial/Title-based guided search/crawler/titlesearchURLs.json')
-    #hyperlink-guided 48
-    # initialhowmanyobscureVPs('../crawling/initial/Hyperlink-guided search/crawler/LGinlinkurlfirst.json')
-
-    #for the later three iterations，we calaulate the number of relevant URLS from each search method
-    # iterationrelevant()
-    #280
     iterationobscureVPs()

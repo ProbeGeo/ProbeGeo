@@ -1,9 +1,8 @@
-
 from sklearn.datasets import fetch_20newsgroups
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
-#文本预处理, 可选项
+
 import nltk
 import string
 import json
@@ -41,18 +40,15 @@ def textprocess(text):
     stoplist.append('tr')
     stoplist.append('TR')
     stoplist.append('US')
-
-
     print(wordLst)
     # remove stopwords
     filtered = [w for w in wordLst if w not in stoplist]
-
     # refiltered = nltk.pos_tag(filtered)
     # filtered = [w for w, pos in refiltered if pos.startswith('NN')]
     return " ".join(filtered)
 
-def tfidfcount():
 
+def tfidfcount():
     docLst = []
     with open('20newsgroups.csv', 'r') as f:
        for line in f.readlines():
@@ -69,7 +65,6 @@ def tfidfcount():
         url.append(key)
         listcont.append(data[key])
         text+=data[key]
-
     file=open('itemfrequent.csv','w')
     docLst.append(textprocess(text))
     vectorizer = CountVectorizer()
@@ -92,7 +87,7 @@ if __name__ == '__main__':
     # docLst = []
     # dataset = fetch_20newsgroups(shuffle=True, random_state=1,
     #                              remove=('headers', 'footers', 'quotes'))
-    # data_samples = dataset.data[:18846] #截取需要的量，n_samples=18846
+    # data_samples = dataset.data[:18846] #n_samples=18846
     # for desc in data_samples :
     #     docLst.append(textPrecessing(desc).encode('utf-8'))
     # with open('20newsgroups.csv', 'w') as f:

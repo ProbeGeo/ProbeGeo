@@ -1,4 +1,3 @@
-
 import csv
 import json
 
@@ -26,7 +25,7 @@ def preprocess():
 
     keylist = {}
     f = open('../../../webseds/All-LGseedpages/afterManualCheck/isLG.csv', 'r',
-             )  # 打开‘json文件
+             )  # open json file
     csv_reader1 = csv.reader(f)
     for row in csv_reader1:
         keylist[','.join(row)] = 0
@@ -50,8 +49,6 @@ def preprocess():
             continue
         info = url + ',' + ','.join(row).split(',|ProbeGeo|')[1]
         allinfo.append(info)
-
-
     allurl1=[]
     allinfo1=[]
     file = open('predictLGtitleplusinput.csv', 'r')
@@ -61,9 +58,6 @@ def preprocess():
         info = url + ',' + ','.join(row).split(',|ProbeGeo|')[1]
         allinfo1.append(info)
         allurl1.append(url)
-
-
-
     cv = CountVectorizer(lowercase=True)
     cv.fit(allinfo)
     ##bag of words
@@ -72,7 +66,6 @@ def preprocess():
     print(len(allinfo))
     print(len(allinfo1))
     return cv_fit_all, allurl1
-
 
 
 def bagging(cv_fit_father,allurl):
@@ -88,40 +81,23 @@ def bagging(cv_fit_father,allurl):
         file.writelines('\n')
 
 
-
-
-
-
-
-
-
-
-
 def KScurve():
-
     contenturl = {}
     file = open('../../getURLs/forth_iteration/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         contenturl[','.join(row)] = 0
     print(len(contenturl))
-
-
     file = open('probalineSVC.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         url = ','.join(row).split('\t')[0]
         if(url in contenturl):
             contenturl[url]=float(','.join(row).split('\t')[2])
-
     d_order = sorted(contenturl.items(), key=lambda x: x[1], reverse=True)
-
-
     num=0
     file=open('relevanceprediction.csv','w')
     file1=open('relevanceLG.csv','w')
-
-
     for key,value in d_order:
         if(float(value)>= 0.4292):
             num+=1
@@ -151,7 +127,6 @@ def getcontent():
             url = ','.join(row).split(',|ProbeGeo|')[0]
             if (url in keylist):
                 fileopen.writelines(','.join(row) + '\n')
-
 
 
 if __name__ == '__main__':

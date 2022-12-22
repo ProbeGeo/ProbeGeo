@@ -47,7 +47,7 @@ def do_something(urllist,be,ed,thread_index):
                                  verify=False,
                                  timeout=60)
                 r.raise_for_status()
-                # 设置该html文档可能的编码
+                # setting possible html encodings
                 r.encoding = r.apparent_encoding
                 content = r.text
                 f1.writelines(url + ',|ProbeGeo|' +url1 + ',|ProbeGeo|' +content.replace('\n',' ').replace('\t',' ') + '\n')
@@ -63,7 +63,6 @@ def do_something(urllist,be,ed,thread_index):
 
 def filedeal():
     #merge html files into one file
-
     csv.field_size_limit(500 * 1024 * 1024)
     dictinfo = []
     for i in range(0, 10):
@@ -91,14 +90,12 @@ def filedeal():
         file1.writelines(key+'\n')
 
 
-
 def getresponedURLs():
     dictpre = {}
     file1 = open('prefilteredurl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dictpre[','.join(row)] = 0
-
     file1 = open('urlcontent.csv', 'r')
     csv_reader1 = csv.reader(file1)
     csv.field_size_limit(500 * 1024 * 1024)
@@ -129,8 +126,6 @@ if __name__ == '__main__':
     csv.field_size_limit(500 * 1024 * 1024)
     for row in csv_reader1:
         dicturl.append(','.join(row))
-
-
     print(len(dicturl))
     d = 15
     num = int(len(dicturl) / d)

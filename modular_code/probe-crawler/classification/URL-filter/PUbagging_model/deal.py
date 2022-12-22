@@ -1,4 +1,3 @@
-
 import json
 import csv
 
@@ -13,8 +12,6 @@ from sklearn.metrics import confusion_matrix
 
 ###calculate the AUC performance of multiple trained pre-filters on the validation dataset,
 def analysis(c):
-
-
     resultURL=[]
     resultpredict=[]
     resultproba=[]
@@ -25,13 +22,8 @@ def analysis(c):
         resultURL.append(','.join(row).split('\t')[0])
         resultproba.append(float(','.join(row).split('\t')[2]))
         i+=1
-
     print(len(resultURL))
     print(len(resultproba))
-
-
-
-
     testlabel = []
     testurl = []
     predictproba=[]
@@ -43,9 +35,6 @@ def analysis(c):
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictproba.append(resultproba[i])
-
-
-
     f = open('../training_validation_datasets/CandidateURLs(URL-based)/testlabel-validation.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -57,7 +46,6 @@ def analysis(c):
             predictproba.append(resultproba[i])
     # print(len(testlabel))
     # print(len(testurl))
-
     f = open('../training_validation_datasets/CandidateURLs(Hyperlink-guided)/testlabel-validation.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -68,7 +56,6 @@ def analysis(c):
             testlabel.append(int(dicttest[resultURL[i]]))
 
             predictproba.append(resultproba[i])
-
     f = open('../training_validation_datasets/CandidateURLs(Title-based)/testlabel-validation.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -77,8 +64,6 @@ def analysis(c):
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictproba.append(resultproba[i])
-
-
     f = open('../training_validation_datasets/CandidateURLs(Body-based)/testlabel-validation.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -87,19 +72,13 @@ def analysis(c):
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictproba.append(resultproba[i])
-
     print(len(testlabel))
     print(len(predictproba))
     rocauc_1 = roc_auc_score(testlabel, predictproba)
-
     return rocauc_1
 
 
-
-
-
 def KScurve(filename1,m,filename2):
-
     resultURL = []
     resultproba = []
     file1 = open(filename1, 'r')
@@ -145,10 +124,7 @@ def KScurve(filename1,m,filename2):
         if (resultURL[i] in dicttest):
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
-
             predictproba.append(float(resultproba[i]))
-
-
     f = open('../training_validation_datasets/CandidateURLs(Title-based)/testlabel-validation.json', encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
@@ -194,9 +170,6 @@ def KScurve(filename1,m,filename2):
     print(tpr[x:])
     x=x+5
 
-
-
-
     plt.plot([threshold[x],threshold[x]], [fpr[x], tpr[x]], linewidth=4, color='r')
     # plt.scatter((x, x), (0, ks_value), color='r')
     plt.xlabel('$T$\n(a)', fontsize=28)
@@ -211,25 +184,17 @@ def KScurve(filename1,m,filename2):
     plt.savefig("KS-curve.png",bbox_inches = 'tight')
     plt.show()
 
-
-
     file=open(filename2,'w')
     for i in range(0,len(resultURL)):
         if(resultproba[i]>= 0.2072):
-
             file.writelines(resultURL[i]+'\t'+str(resultproba[i])+'\t'+'1'+'\n')
-
         else:
             file.writelines(resultURL[i]+'\t'+str(resultproba[i])+'\t'+'0'+'\n')
-
-
-
 
 
 def calrecallontest():
     resultURL = []
     resultpredict = []
-
     file1 = open('baggingresultnew.csv', 'r')
     csv_reader1 = csv.reader(file1)
     i = 0
@@ -237,15 +202,12 @@ def calrecallontest():
         resultURL.append(','.join(row).split('\t')[0])
         resultpredict.append(int(','.join(row).split('\t')[2]))
         i += 1
-
     print(len(resultURL))
     print(len(resultpredict))
-
     testlabel = []
     testurl = []
     predictlabel = []
-    f = open('../training_validation_datasets/webseds/testlabel-test.json',
-             encoding='utf-8')  #
+    f = open('../training_validation_datasets/webseds/testlabel-test.json',encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
     for i in range(0, 2991):
@@ -254,10 +216,7 @@ def calrecallontest():
             testlabel.append(int(dicttest[resultURL[i]]))
             predictlabel.append(resultpredict[i])
 
-
-
-    f = open('../training_validation_datasets/CandidateURLs(URL-based)/testlabel-test.json',
-             encoding='utf-8')  #
+    f = open('../training_validation_datasets/CandidateURLs(URL-based)/testlabel-test.json',encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
     for i in range(2991, 436856):
@@ -265,9 +224,7 @@ def calrecallontest():
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictlabel.append(resultpredict[i])
-
-    f = open('../training_validation_datasets/CandidateURLs(Hyperlink-guided)/testlabel-test.json',
-             encoding='utf-8')  #
+    f = open('../training_validation_datasets/CandidateURLs(Hyperlink-guided)/testlabel-test.json',encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
     for i in range(436856, 441292):
@@ -275,10 +232,7 @@ def calrecallontest():
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictlabel.append(resultpredict[i])
-
-
-    f = open('../training_validation_datasets/CandidateURLs(Title-based)/testlabel-test.json',
-             encoding='utf-8')  #
+    f = open('../training_validation_datasets/CandidateURLs(Title-based)/testlabel-test.json',encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
     for i in range(441292, 903091):
@@ -287,9 +241,7 @@ def calrecallontest():
             testlabel.append(int(dicttest[resultURL[i]]))
             predictlabel.append(resultpredict[i])
 
-
-    f = open('../training_validation_datasets/CandidateURLs(Body-based)/testlabel-test.json',
-             encoding='utf-8')  #
+    f = open('../training_validation_datasets/CandidateURLs(Body-based)/testlabel-test.json',encoding='utf-8')  #
     res = f.read()  #
     dicttest = json.loads(res)
     for i in range(903091, 922884):
@@ -297,7 +249,6 @@ def calrecallontest():
             testurl.append(resultURL[i])
             testlabel.append(int(dicttest[resultURL[i]]))
             predictlabel.append(resultpredict[i])
-
 
     for i in range(0,len(predictlabel)):
         if(testlabel[i]==1 and predictlabel[i]==0):
@@ -307,7 +258,6 @@ def calrecallontest():
 
 
 if __name__ == "__main__":
-
     #hyperparameter tunning
     # K = [0.1, 0.2, 0.5,0.8, 0.9, 1, 5, 10, 15]
     # for c in K:
@@ -318,11 +268,5 @@ if __name__ == "__main__":
     # #Figure 2(a) in our paper which draws the distribution of TPR and FPR of the trained pre-filter under different $T$ is also drawn with deal.py.
     # KScurve('probalineSVC10-100-1.csv',2,'baggingresultnew.csv')
     #
-
     #run deal.py to calculate the TPR and FPR performance of the pre-filter on the test set.
     calrecallontest()
-
-
-
-
-

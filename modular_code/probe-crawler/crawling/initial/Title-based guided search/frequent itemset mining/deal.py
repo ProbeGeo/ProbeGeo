@@ -45,7 +45,7 @@ def hint():
     file1=open('orgnamenew.csv','w')
     f = open('../../../../webseds/peeringdb/peeringdbnet.json',
              encoding='utf-8')
-    res = f.read()  # 读文件
+    res = f.read()
     data = json.loads(res)
     for key in data['data']:
         if (key['website'] != ''):
@@ -63,8 +63,6 @@ def replace():
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         dictasorg[int(row[0])]=row[1].lower()
-
-
     file1 = open('item.csv', 'w')
     file = open('titileinfo.csv', 'r')
     csv_reader1 = csv.reader(file)
@@ -91,10 +89,6 @@ def replace():
             file1.writelines(','.join(listtitlesplit)+'\n')
 
 
-
-
-
-
 # After extracting, if these two virtual words are found in the frequent phrases, we will replace them with the name and the number of every AS on the Internet to construct a series of search terms.
 def URLs(dictrule):
     dictasinfo={}
@@ -102,9 +96,6 @@ def URLs(dictrule):
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dictasinfo[int(row[0])]=[row[1],'']
-
-
-
     file1 = open('../../../../webseds/peeringdb/AS-Org/AS-ORG.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
@@ -115,7 +106,6 @@ def URLs(dictrule):
             dictasinfo[int(row[0].split('|')[0])][1]=asname
         else:
             dictasinfo[int(row[0].split('|')[0])] =['',asname]
-
     # print(len(dictasinfo))
     keyword=[]
     for key in dictrule:
@@ -124,7 +114,6 @@ def URLs(dictrule):
             for asn in dictasinfo:
                 str1=key.replace('ASnumber','AS'+str(asn))
                 keyword.append(str1)
-
         elif('Orgname' in key and 'ASnumber' not in key):
             for asn in dictasinfo:
                 if(dictasinfo[asn][0]!='' ):
@@ -158,6 +147,3 @@ if __name__ == '__main__':
     # replace()
     # dictrule={'looking glass ASnumber|Orgname': '', 'net': ''}
     # URLs(dictrule)
-
-
-

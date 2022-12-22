@@ -53,18 +53,12 @@ def inputfromprefiltered():
             file2.writelines(key + ',|ProbeGeo|' + dicturlpre[key][1] + '\n')
 
 
-
-
 def extract():
     dictpre1 = {}
     file1 = open('../../getURLs/forth_iteration/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dictpre1[','.join(row)] = 0
-
-
-
-
     dicturlpre = {}
     csv.field_size_limit(500 * 1024 * 1024)
     for i in range(1, 7):
@@ -74,8 +68,6 @@ def extract():
         for row in csv_reader1:
             if(','.join(row).split(',|ProbeGeo|')[0] in dictpre1):
                 dicturlpre[','.join(row).split(',|ProbeGeo|')[0]] = [','.join(row),'']
-
-
     for key in dicturlpre:
         str1 = ''
         # print(dicturlpre)
@@ -93,12 +85,9 @@ def extract():
             if (title):
                 str1 += ' ' + title[0]
         dicturlpre[key][1] = str1.replace('\n', ' ').replace('\t', ' ')
-
-
     file2 = open('predictLGinput.csv', 'w')
     for key in dicturlpre:
         file2.writelines(key+',|ProbeGeo|'+dicturlpre[key][1]+'\n')
-
 
 #extract title
 def meargetitle():
@@ -108,7 +97,7 @@ def meargetitle():
     file1 = open('../../getURLs/forth_iteration/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
-        # 0表示没有内容
+        # 0 no content
         dictpre1[','.join(row)] = 0
 
     file=open('predictLGtitle.csv','w')

@@ -1,4 +1,3 @@
-
 import json
 from collections import OrderedDict
 import csv
@@ -29,9 +28,8 @@ def newdeal():
 
 def validation():
     ##1% for validation , and 1% for test
-    f = open('testlabel.json', encoding='utf-8')  # 打开‘json文件
-    res = f.read()  # 读文件
-    ##按照顺序载入
+    f = open('testlabel.json', encoding='utf-8')
+    res = f.read()
     data = json.loads(res, object_pairs_hook=OrderedDict)
     list1=[]
     for key in data:
@@ -49,6 +47,7 @@ def validation():
         json.dump(dictvalidation, f)
     with open("testlabel-test.json", "w") as f:
         json.dump(dicttest, f)
-if __name__ == '__main__':
 
+
+if __name__ == '__main__':
     validation()

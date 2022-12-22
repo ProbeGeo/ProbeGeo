@@ -777,4 +777,3 @@ class BaggingClassifierPU(BaseBaggingPU, ClassifierMixin):
         decisions = sum(all_decisions) / self.n_estimators
 
         return decisions
-

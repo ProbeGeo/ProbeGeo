@@ -1,4 +1,3 @@
-
 import urllib.request
 import urllib.request
 import requests
@@ -21,7 +20,6 @@ headers = {
 def do_something(dictcontent,urllist,be,ed,thread_index):
     f1 = open('inputseed_results_' + str(int(thread_index)) + '.csv', 'a')
     for num in range(be,ed):
-
         url = urllist[num]
         print(url)
         if(url not in dictcontent):
@@ -30,18 +28,15 @@ def do_something(dictcontent,urllist,be,ed,thread_index):
         try:
             content=dictcontent[url]
             soup = bs(content, 'html.parser')
-
             for link in soup.findAll("a", href=re.compile("^(http|www)")):
                 if link.attrs['href'] is not None:
                     str1+='<URL>'+link.attrs['href']+'</URL>,'
-
             for iframe in soup.find_all('iframe'):
-                url_ifr = iframe['src']  # 取得当前iframe的src属性值
+                url_ifr = iframe['src']  # get iframe src value
                 if('http' in url_ifr):
                     str1 += '<URL>' + url_ifr + '</URL>,'
             f1.writelines(url + ',|ProbeGeo|' + str1 + '\n')
             f1.flush()
-
         except Exception as e:
             f1.writelines(url + ',|ProbeGeo|' + str1 + '\n')
             f1.flush()
@@ -50,19 +45,13 @@ def do_something(dictcontent,urllist,be,ed,thread_index):
             continue
 
 
-
 if __name__ == '__main__':
-
     csv.field_size_limit(500 * 1024 * 1024)
-
-
-
     dicturl = []
     file1 = open('../../../classification/relevant-URLs/second_iteration/relevanceLG.csv', 'r')
     csv_reader1 = csv.reader(file1)
     for row in csv_reader1:
         dicturl.append(','.join(row))
-
     dictcontent={}
     file1 = open('../../../classification/relevant-URLs/second_iteration/LGallcontent.csv', 'r')
     csv_reader1 = csv.reader(file1)
@@ -78,10 +67,6 @@ if __name__ == '__main__':
         if(html.replace(' ','')==''):
             continue
         dictcontent[url]=html
-
-
-
-
     print(len(dictcontent))
     print(len(dicturl))
     d = 10

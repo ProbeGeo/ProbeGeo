@@ -1,4 +1,4 @@
-###进行bagging处理
+###bagging
 import csv
 import json
 
@@ -13,28 +13,21 @@ from sklearn.metrics import roc_curve, auc, roc_auc_score
 
 from sklearn.metrics import classification_report as clsr, accuracy_score,recall_score
 
+
 def preprocess():
     #    #using the same word bag
-
     allinfo=[]
     contenturl = {}
-
     file = open('../../getURLs/initial/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         contenturl[','.join(row)] = 0
     print(len(contenturl))
-
     keylist = {}
-    f = open('../../../webseds/All-LGseedpages/afterManualCheck/isLG.csv','r',
-             )
+    f = open('../../../webseds/All-LGseedpages/afterManualCheck/isLG.csv','r')
     csv_reader1 = csv.reader(f)
     for row in csv_reader1:
         keylist[','.join(row)] = 0
-
-
-
-
     file1 = open(
         '../../content-classifier/Extracting_features/isLGtitleplusinput.csv', 'r')
     csv_reader1 = csv.reader(file1)
@@ -45,9 +38,6 @@ def preprocess():
             continue
         info = url+','+','.join(row).split(',|ProbeGeo|')[1]
         allinfo.append(info)
-
-
-
     file = open('../../content-classifier/Extracting_features/predictLGtitleplusinput.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
@@ -56,7 +46,6 @@ def preprocess():
             continue
         info = url+','+','.join(row).split(',|ProbeGeo|')[1]
         allinfo.append(info)
-
     ##predicting prefiltered URLs
     allurl1=[]
     allinfo1=[]
@@ -67,9 +56,6 @@ def preprocess():
         info = url + ',' + ','.join(row).split(',|ProbeGeo|')[1]
         allinfo1.append(info)
         allurl1.append(url)
-
-
-
     cv = CountVectorizer(lowercase=True)
     cv.fit(allinfo)
     ##bag of words model
@@ -78,7 +64,6 @@ def preprocess():
     print(len(allinfo))
     print(len(allinfo1))
     return cv_fit_all, allurl1
-
 
 
 def bagging(cv_fit_father,allurl):
@@ -94,37 +79,23 @@ def bagging(cv_fit_father,allurl):
         file.writelines('\n')
 
 
-
-
-
 def KScurve():
-
     contenturl = {}
     file = open('../../getURLs/second_iteration/getcontenturl.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         contenturl[','.join(row)] = 0
     print(len(contenturl))
-
-
     file = open('probalineSVC.csv', 'r')
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         url = ','.join(row).split('\t')[0]
         if(url in contenturl):
             contenturl[url]=float(','.join(row).split('\t')[2])
-
-    d_order = sorted(contenturl.items(), key=lambda x: x[1], reverse=True)  # 按字典集合中，每一个元组的第二个元素排列。
-
-
-
-
+    d_order = sorted(contenturl.items(), key=lambda x: x[1], reverse=True)
     num=0
     file=open('relevanceprediction.csv','w')
     file1=open('relevanceLG.csv','w')
-
-
-
     for key,value in d_order:
         if(float(value)>= 0.4292):
             num+=1
@@ -142,7 +113,6 @@ def getcontent():
     for row in csv_reader1:
         keylist[','.join(row)] = ''
     print(len(keylist))
-
     fileopen=open('LGallcontent.csv','w')
     file1 = open(
         '../../classification/getURLs/second_iteration/urlcontent.csv', 'r')

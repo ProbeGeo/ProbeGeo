@@ -1,5 +1,3 @@
-
-
 # !usr/bin/env python
 # encoding:utf-8
 from bs4 import BeautifulSoup
@@ -7,8 +5,6 @@ from lxml import etree
 import csv
 import json
 import re
-
-
 
 
 def deal():
@@ -34,27 +30,21 @@ def deal():
             # VIEWSTATE = soup.find('input')["id"]
             # VIEWSTATE = soup.find('input')["name"]
             # VIEWSTATE = soup.find('input').get_text()
-
             for view in VIEWSTATE:
                 try:
                     dicturl[url] +=view.get_text().replace('\n', ' ').replace('\t', ' ') + ','
                 except KeyError as e:
                     m = 0
-
-
         except AttributeError as e:
             continue
         except UnicodeDecodeError as e:
             continue
         except UnicodeEncodeError as e:
             continue
-
     with open("LGselectcontent.json", "w") as f:
         json.dump(dicturl, f)
 
 
-
 ###
-
 if __name__ == '__main__':
     deal()

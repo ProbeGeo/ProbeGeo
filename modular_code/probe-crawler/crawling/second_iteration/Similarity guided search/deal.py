@@ -1,4 +1,3 @@
-
 import csv
 import re
 import json
@@ -10,7 +9,6 @@ def results():
     csv_reader1 = csv.reader(file)
     for row in csv_reader1:
         dictrelev[','.join(row)]=''
-
     dictlg={}
     for i in range(0, 10):
         file1 = open('Middle_results_' + str(i) + '.csv', 'r')
@@ -28,10 +26,10 @@ def results():
                         urls= re.findall(r'<URL>(.*?),<\/URL>',el, re.S | re.M)
                         for url in urls:
                             dictlg[url]=name
-
     with open("fatherURLs.json", "w") as f:
         json.dump(dictlg, f)
     print(len(dictlg))
+
 
 def removeduple():
     dictpre = {}
@@ -44,27 +42,18 @@ def removeduple():
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
-    f = open(
-        '../../initial/Hyperlink-guided search/crawler/LGinlinkurlfirst.json',
-        encoding='utf-8')  #
+    f = open('../../initial/Hyperlink-guided search/crawler/LGinlinkurlfirst.json',encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
-    ##C
-
-    f = open(
-        '../../initial/Title-based guided search/crawler/titlesearchURLs.json',
-        encoding='utf-8')  #
+    f = open('../../initial/Title-based guided search/crawler/titlesearchURLs.json',encoding='utf-8')  #
     res = f.read()  #
     data = json.loads(res)
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
     f = open(
         '../../initial/Body-based guided search/crawler/bodysearchURLs.json',
         encoding='utf-8')  #
@@ -73,22 +62,17 @@ def removeduple():
     for key in data:
         if ('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictpre[key.split('//')[1]] = ''
-
     dictnew={}
-    f = open('fatherURLs.json', encoding='utf-8')  # 打开‘json文件
-    res = f.read()  # 读文件
+    f = open('fatherURLs.json', encoding='utf-8')
+    res = f.read()
     from collections import OrderedDict
     data = json.loads(res, object_pairs_hook=OrderedDict)
     for key in data:
         if('http' in key[:4] and key.split('//')[1] not in dictpre):
             dictnew[key]=''
-
-
-
     with open("fatherURLsnew.json", "w") as f:
         json.dump(dictnew, f)
     print(len(dictnew))
-
 
 
 if __name__ == '__main__':

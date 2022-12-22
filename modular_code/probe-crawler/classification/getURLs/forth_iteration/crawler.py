@@ -1,10 +1,6 @@
 import csv
 
-
-
-
-##首先获取LG和非LG网页的内容
-##采用bing爬虫
+##using bing crawler
 import urllib.request
 import urllib.request
 import requests
@@ -51,7 +47,7 @@ def do_something(urllist,be,ed,thread_index):
                                  verify=False,
                                  timeout=60)
                 r.raise_for_status()
-                # 设置该html文档可能的编码
+                # setting possible html encoding
                 r.encoding = r.apparent_encoding
                 content = r.text
                 f1.writelines(url + ',|ProbeGeo|' +url1 + ',|ProbeGeo|' +content.replace('\n',' ').replace('\t',' ') + '\n')
