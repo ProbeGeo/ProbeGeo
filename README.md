@@ -4,7 +4,35 @@ IP geolocation is essential for various location-aware Internet applications. Hi
 ## Introduction
 To make it easier for readers to reproduce our research, we make the source code, test data, and landmark datasets of ProbeGeo publically available. Please cite our paper if you use the ProbeGeo landmark dataset, thank you! 
 
-Our project mainly consists of three parts: data, exp_code and modular_code. 
+Our project mainly consists of three parts: data, exp_code and modular_code. The directory tree and specific functions of the project are shown below. 
+
+```
+ProbeGeo
+├── data    # include the landmark dataset obtained by ProbeGeo
+│   └── landmark_dataset.csv    # 89,849 in total (type, IP, lat, lon)
+├── exp_code    # the code and data needed to complete the experiment
+│   ├── cdf     
+│   │   ├── cdf.py  # the script to calculate the CDF curve
+│   │   └── exp_result  # geolocation accuracy evaluation data, the source of CDF
+│   └── cdf.py  # CDF function
+├── modular_code    #　the ProbeGeo module code
+│   ├── CLM-Common-Landmark-Miner   # common landmark miner, including process code, data and others
+│   │   ├── multi-layer-miner   # search multi-layers of websites to discover more landmarks
+│   │   ├── plot
+│   │   │   ├── cdf # calculate the cdf curve of mined landmarks
+│   │   │   ├── distribution    # analyse the distribution of common landmarks in geographic and network space
+│   │   │   └── map # reflect the distribution on a world map, visualization
+│   │   ├── retrieval-and-classify  # CLM main process
+│   │   ├── validate    # check the common landmarks reliable or not
+│   │   └── webseeds    # the input of CLM
+│   ├── DLG-Device-Landmark-Generator   # generate landmarks from websites, finding geo-info and IPs
+│   └── PLM-Probe-Landmark-Miner    # probe landmark miner, including process code, data and others
+│       ├── classification  # classify public VPs websites into geo-contained or not
+│       ├── crawling    # 
+│       ├── evaluation  # 
+│       └── webseeds    # the input of PLM
+└── README.md
+```
 
 ## Data
 The data directory contains all the ProbeGeo landmark data that we mined. The data is stored in csv format and has four attributes. In order: landmark type, IP, latitude,and longitude. 
